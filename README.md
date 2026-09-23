@@ -1,90 +1,87 @@
-# Привет, я Яков
+# Python developer
 
-**Python-разработчик.** Автоматизирую бизнес-процессы: интеграции с CRM и платёжными системами, AI-агенты на LLM,
-обработка сложных данных, серверная часть и Telegram-боты. От скрипта до продукта, который работает в боевом режиме.
+I automate business processes: CRM and payment integrations, LLM agents, processing of complex data, backend
+services and Telegram bots. From a script to a product that runs in production. Open to work.
 
-*Python developer: business automation, CRM and payment integrations, LLM agents, backend. Open to work.*
+Open source: **[svcwatch](https://github.com/ololowj-dotcom/svcwatch)** - a watchdog for Linux servers that reports
+to Telegram (systemd, Docker, processes, HTTP/TCP), with tests and CI on Python 3.9-3.13. Client code is private under
+NDAs, so the projects below are described rather than linked.
 
-Открытый код: **[svcwatch](https://github.com/ololowj-dotcom/svcwatch)** - сторож для Linux-серверов с уведомлениями
-в Telegram (systemd, Docker, процессы, HTTP/TCP), тесты и CI на Python 3.9-3.13. Код клиентских проектов закрыт по
-договорённости с заказчиками, ниже их описание.
+## Selected projects
 
-## Избранные проекты
+### CRM sync and online payments for an e-commerce store
+Commerce backend for an existing shop: orders and payment statuses are synchronised with RetailCRM in real time; online
+payments (YooKassa with a fiscal receipt under Russian law 54-FZ, or T-Kassa) with server-side re-verification of the
+amount and status, so neither price nor payment fact is trusted to the client. A separate bot delivers order cards to
+managers with one-time-code subscription. Custom CRM panel: login, revenue and order overview.
+`Python` `RetailCRM API` `YooKassa` `webhooks` `aiogram`
 
-### CRM и приём онлайн-оплаты для интернет-магазина
-Бэкенд коммерции для готового магазина: заказы и статусы оплаты синхронизируются с RetailCRM в реальном времени,
-онлайн-оплата (ЮKassa с фискальным чеком по 54-ФЗ или Т-Касса) с серверной перепроверкой суммы и статуса платежа -
-клиенту не доверяются ни цена, ни факт оплаты. Отдельный бот присылает менеджерам карточку заявки, подписка по
-одноразовому коду. Собственная CRM-панель: вход, обзор выручки и заказов.
-`Python` `RetailCRM API` `ЮKassa` `Т-Касса` `webhook` `aiogram`
-
-### Система AI-агентов для селлеров Wildberries
-Работа с негативными отзывами: агент находит отзыв, ведёт диалог с покупателем в чате кабинета и доводит дело до заявки
-на возврат и обновления отзыва. Отдельный агент разбирает ответы покупателя (LLM с резервной логикой без LLM), другой
-проверяет исходящие сообщения на риск нарушений; тексты исходящих берутся только из шаблонов. Плюс разбор причин
-низкого рейтинга и мониторинг кабинета (остатки, цены, комиссии). Автономный движок с учётом лимитов API, очередь
-исходящих, многопользовательская веб-панель, автотесты. Статус: в разработке, пилот на реальном кабинете.
+### Multi-agent system for Wildberries sellers
+Handling of negative reviews: an agent finds a review, talks to the buyer in the seller chat and brings the case to a
+return request and an updated review. One agent classifies the buyer's replies (LLM with a rule-based fallback), another
+checks outgoing messages for policy risks; outgoing texts come only from templates. Also rating-reason analysis and
+seller-account monitoring (stock, prices, commissions). Autonomous engine that respects marketplace API limits, outgoing
+queue, multi-tenant web panel, automated tests. Status: in development, piloted on a real account.
 `Python` `FastAPI` `LLM` `Next.js` `SQLite` `Wildberries API`
 
-### Автоматизация HR-отчётности для государственной больницы
-Программа разбирает разнородные Excel-табели всех отделений (около 1000 сотрудников) и считает среднесписочную
-численность по методике Росстата (Приказ №638): находит и убирает задвоения и лишние строки, результат сверен с ручным
-расчётом бухгалтерии до полного совпадения. Единый шаблон табеля для всех отделений и веб-панель: загрузил архив с
-таблицами - через пару минут готовый документ. Раньше сотрудники считали это вручную два дня.
-`Python` `openpyxl` `веб-панель`
+### HR reporting automation for a state hospital
+A program parses heterogeneous Excel timesheets of every department (about 1,000 employees) and computes the average
+headcount under the official statistical methodology (Rosstat Order No. 638): it finds and removes duplicates and
+phantom rows, and the result was reconciled with the accountants' manual calculation until it matched exactly. One
+unified timesheet template for all departments and a web panel: upload an archive of tables and get the finished
+document in a couple of minutes. Staff used to spend two days on it by hand.
+`Python` `openpyxl` `web panel`
 
-### Ежедневная отчётность Wildberries в Google-таблицах
-Остатки по складам, воронка продаж и расходы на рекламу с автоматическим расчётом ДРР собираются в таблицу каждое утро
-без ручной выгрузки из кабинета. Накопительная история, автоочистка устаревших данных; работает по расписанию месяцами
-без вмешательства и переживает смену эндпоинтов и лимитов API.
+### Daily Wildberries reporting into Google Sheets
+Stock by warehouse, the sales funnel and advertising spend with an automatic ad-cost-ratio calculation land in a
+spreadsheet every morning, with no manual export. Cumulative history, automatic cleanup of stale data; runs on a
+schedule for months unattended and survives changes of API endpoints and limits.
 `Python` `Wildberries API` `Google Sheets API` `cron`
 
-### AI-подбор пар в Telegram
-Сервис знакомств с еженедельными раундами: LLM ранжирует пары по анкетам и объясняет, почему они подходят друг другу.
-Модель иногда игнорировала запрет повторных пар, поэтому защита сделана в коде; персональные данные обезличиваются
-перед отправкой в LLM, есть резервный алгоритм на случай сбоя модели, более 60 автотестов.
+### LLM matchmaking in Telegram
+A dating service with weekly rounds: an LLM ranks pairs from questionnaires and explains why they fit. The model
+sometimes ignored the "never repeat a pair" rule, so the guarantee is enforced in code; personal data is anonymised
+before it reaches the LLM, a fallback algorithm covers model outages, and there are 60+ automated tests.
 `Python` `aiogram 3` `LLM` `SQLite`
 
-### Интернет-магазины с собственной CMS
-Два магазина одежды на общем каркасе: каталог, корзина, оформление заказа, админка без кода (тексты, товары, заказы,
-lookbook), юридические страницы по 152-ФЗ, аудит безопасности (CSRF, rate-limit, проверка загружаемых файлов, подписанные
-сессии).
+### E-commerce stores with a custom CMS
+Two clothing stores on a shared codebase: catalogue, cart, checkout, a no-code admin (texts, products, orders,
+lookbook), legal pages, and a security review (CSRF, rate limiting, upload validation, signed sessions).
 `Next.js` `Prisma` `Tailwind` `Motion`
 
-### Сайт-продажник со скролл-сторителлингом
-Для продавца солнечных панелей: день сменяет ночь по мере прокрутки, товар «разбирается» на слои, заявки уходят в
-Telegram через очередь доставки и не теряются при сбоях сети, Яндекс.Метрика с целями под рекламу, SEO. Вес страницы
-уменьшен с 28 МБ до 2,7 МБ.
-`GSAP` `Lenis` `Яндекс.Метрика` `Telegram API`
+### Scroll-storytelling sales site
+For a solar-equipment seller: the day turns into night as you scroll, the product explodes into layers, leads reach
+Telegram through a delivery queue that survives network failures, Yandex Metrica goals for ad campaigns, SEO. Page weight
+cut from 28 MB to 2.7 MB.
+`GSAP` `Lenis` `Yandex Metrica` `Telegram API`
 
-### SaaS и платформы в Telegram
-Платформа вакансий по городам (роли работодателя и соискателя, модерация, платные публикации, AI-улучшение текста) и
-multi-bot SaaS для бьюти-мастеров: главный бот продаёт доступ и запускает персональных ботов. Бот разбора документов:
-PDF, DOCX и сканы проходят через OCR и LLM и превращаются в структурированный отчёт.
-`Python` `aiogram 3` `ЮKassa` `Tesseract` `PostgreSQL`
+### SaaS and platforms in Telegram
+A job platform by city (employer and candidate roles, moderation, paid listings, AI text improvement), a multi-bot SaaS
+for beauty professionals (a main bot sells access and launches personal bots), and a document bot that turns PDFs, DOCX
+files and scans into a structured report via OCR and an LLM.
+`Python` `aiogram 3` `YooKassa` `Tesseract` `PostgreSQL`
 
-Все 34 проекта с описаниями и скриншотами: **[okulovdeveloper.space](https://okulovdeveloper.space)** и Mini App в
-Telegram: [cases-miniapp.vercel.app](https://cases-miniapp.vercel.app).
+All 34 projects with descriptions and screenshots: **[okulovdeveloper.space](https://okulovdeveloper.space)** and the
+Telegram Mini App [cases-miniapp.vercel.app](https://cases-miniapp.vercel.app).
 
-## Telegram-боты с живыми демо
+## Telegram bots with live demos
 
-| Бот | Что делает | Демо |
+| Bot | What it does | Demo |
 |---|---|---|
-| AI-психолог | диалог по CBT-методикам, подписки, автобиллинг, админ-панель | [@TerraPsychology_bot](https://t.me/TerraPsychology_bot) |
-| AI-астролог | прогнозы по дате рождения, совместимость, Premium | [@AstroMatcherBot](https://t.me/AstroMatcherBot) |
-| Развлекательный AI-бот | персонаж с характером, платный расширенный доступ | [@Bydlochat_bot](https://t.me/Bydlochat_bot) |
-| Бот-портфолио + Mini App | витрина кейсов, демо-переписки, форма заявки | [@Tgprokeys_bot](https://t.me/Tgprokeys_bot) |
+| AI psychologist | CBT-style dialogue, subscriptions, auto-billing, admin panel | [@TerraPsychology_bot](https://t.me/TerraPsychology_bot) |
+| AI astrologer | forecasts by birth date, compatibility, premium tier | [@AstroMatcherBot](https://t.me/AstroMatcherBot) |
+| Entertainment AI bot | a character with attitude, paid extended access | [@Bydlochat_bot](https://t.me/Bydlochat_bot) |
+| Portfolio bot + Mini App | case showcase, demo chats, request form | [@Tgprokeys_bot](https://t.me/Tgprokeys_bot) |
 
-## Стек
+## Stack
 
-- **Языки и бэкенд:** Python (asyncio, FastAPI, aiogram 3), Rust для высоконагруженных задач
+- **Languages and backend:** Python (asyncio, FastAPI, aiogram 3), Rust for high-load tasks
 - **AI:** OpenAI, Claude, DeepSeek, RAG, OCR
-- **Данные:** PostgreSQL, SQLite, Redis, Excel и Google Sheets
-- **Фронтенд:** React, Next.js, TypeScript, Telegram WebApp SDK
-- **Интеграции:** RetailCRM, amoCRM, Bitrix24, МойСклад, Wildberries, платёжные системы (ЮKassa, Т-Касса, CloudPayments, Stripe)
-- **Инфраструктура:** Linux, Docker, Nginx, systemd, CI
+- **Data:** PostgreSQL, SQLite, Redis, Excel and Google Sheets
+- **Frontend:** React, Next.js, TypeScript, Telegram WebApp SDK
+- **Integrations:** RetailCRM, amoCRM, Bitrix24, MoySklad, Wildberries, payment systems (YooKassa, T-Kassa, CloudPayments, Stripe)
+- **Infrastructure:** Linux, Docker, Nginx, systemd, CI
 
-## Связаться
+## Contact
 
-Telegram: [@okk337](https://t.me/okk337) · отзывы заказчиков с рейтингом 5.0 на Avito, Profi.ru и YouDo. Могу показать фрагменты кода без данных заказчиков или выполнить небольшое
-тестовое задание.
+Reach me through GitHub. I can show code samples without any customer data or do a small test assignment.
