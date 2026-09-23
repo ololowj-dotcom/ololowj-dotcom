@@ -3,9 +3,14 @@
 I automate business processes: CRM and payment integrations, LLM agents, processing of complex data, backend
 services and Telegram bots. From a script to a product that runs in production. Open to work.
 
-Open source: **[svcwatch](https://github.com/ololowj-dotcom/svcwatch)** - a watchdog for Linux servers that reports
-to Telegram (systemd, Docker, processes, HTTP/TCP), with tests and CI on Python 3.9-3.13. Client code is private under
-NDAs, so the projects below are described rather than linked.
+Open source, with tests and CI on Python 3.9-3.13:
+
+- **[svcwatch](https://github.com/ololowj-dotcom/svcwatch)** - a watchdog for Linux servers that reports to Telegram
+  (systemd, Docker, processes, HTTP/TCP).
+- **[tgcast](https://github.com/ololowj-dotcom/tgcast)** - mailing to a base of Telegram chats: one message posted to
+  every channel and group in your list, with previews, permission checks, safe pauses and no repeats.
+
+Client code is private under NDAs, so the projects below are described rather than linked.
 
 ## Selected projects
 
