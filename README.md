@@ -3,12 +3,15 @@
 I automate business processes: CRM and payment integrations, LLM agents, processing of complex data, backend
 services and Telegram bots. From a script to a product that runs in production. Open to work.
 
-Open source, with tests and CI on Python 3.9-3.13:
+Open source, with tests and CI:
 
 - **[svcwatch](https://github.com/ololowj-dotcom/svcwatch)** - a watchdog for Linux servers that reports to Telegram
   (systemd, Docker, processes, HTTP/TCP).
 - **[tgcast](https://github.com/ololowj-dotcom/tgcast)** - mailing to a base of Telegram chats: one message posted to
   every channel and group in your list, with previews, permission checks, safe pauses and no repeats.
+- **[funnelbot](https://github.com/ololowj-dotcom/funnelbot)** - a self-hosted Telegram sales-funnel bot with payments
+  (Stars, cards, YooKassa, crypto): the owner builds the funnel with buttons inside Telegram, customers pay and get
+  time-limited access to a private channel, a file or a manager request. Russian and English.
 
 Client code is private under NDAs, so the projects below are described rather than linked.
 
