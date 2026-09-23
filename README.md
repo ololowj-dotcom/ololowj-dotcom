@@ -86,6 +86,5 @@ Telegram: [cases-miniapp.vercel.app](https://cases-miniapp.vercel.app).
 
 ## Связаться
 
-Telegram: [@okk337](https://t.me/okk337) · канал с кейсами: [@tgprobots](https://t.me/tgprobots) · отзывы заказчиков с
-рейтингом 5.0 на Avito, Profi.ru и YouDo. Могу показать фрагменты кода без данных заказчиков или выполнить небольшое
+Telegram: [@okk337](https://t.me/okk337) · отзывы заказчиков с рейтингом 5.0 на Avito, Profi.ru и YouDo. Могу показать фрагменты кода без данных заказчиков или выполнить небольшое
 тестовое задание.
